@@ -10,8 +10,8 @@
     "start_url": "/",
     "icons": [
         {
-            "src": "icons/icon_192.png",
-            "sizes": "192x192",
+            "src": "icons/LargeTile.scale-200.png",
+            "sizes": "620x620",
             "type": "image/png",
             "purpose": "any"
         },
