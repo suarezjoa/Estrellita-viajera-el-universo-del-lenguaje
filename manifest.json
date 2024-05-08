@@ -1,13 +1,19 @@
 {
-    "name": "Estrellita-viajera-el-universo-del-lenguaje",
-    "short_name": "Estrillita  viajera",
+    "background_color": "#ffffff",
     "description": "ayudar a los pacientes a mejorar sus habilidades de semántica y morfosintaxis, mediante un juego, desde la comodidad de sus hogares.",
-    "theme_color": "#03a9f4",
-    "background_color": "#5a0fc8",
+    "dir": "ltr",
     "display": "standalone",
+    "name": "Estrellita-viajera-el-universo-del-lenguaje",
     "orientation": "any",
     "scope": "/",
+    "short_name": "Estrillita  viajera",
     "start_url": "/",
+    "theme_color": "#03a9f4",
+    "categories": [
+        "navigation",
+        "utilities"
+      ],
+    "screenshots": [],
     "icons": [
         {
             "src": "icons/LargeTile.scale-200.png",
