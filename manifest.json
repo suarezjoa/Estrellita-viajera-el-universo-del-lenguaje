@@ -1,0 +1,33 @@
+{
+  "background_color": "#ead4d4",
+  "dir": "auto",
+  "display": "fullscreen",
+  "name": "estrellita-viajera-el-universo-del-lenguaje.vercel",
+  "orientation": "natural",
+  "scope": "/",
+  "short_name": "estrellita-viajera-el-universo-del-lenguaje.vercel",
+  "start_url": "/https://estrellita-viajera-el-universo-del-lenguaje.vercel.app",
+  "theme_color": "#fc3232",
+  "id": "estrellita",
+  "description": "ayuda a los pacientes a mejorar sus habilidades de semántica y morfosintaxis, mediante un juego, desde la comodidad de sus hogares.",
+  "lang": "es",
+  "display_override": [
+    "browser",
+    "fullscreen",
+    "window-controls-overlay"
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://estrellita-viajera-el-universo-del-lenguaje.vercel.app",
+      "id": "estrellita viajera"
+    }
+  ],
+  "categories": [
+    "education",
+    "games"
+  ],
+  "edge_side_panel": {
+    "preferred_width": 1
+  }
+}
