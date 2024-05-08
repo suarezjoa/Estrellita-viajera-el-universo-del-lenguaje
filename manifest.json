@@ -26,5 +26,13 @@
             "type": "image/png",
             "purpose": "maskable"
         }
-    ]
+    ],
+    "shortcuts": [
+        {
+          "name": "MapLOT",
+          "url": "MAPUBI",
+          "description": "Agregar indicadores al mapa "
+        }
+      ],
+      "id": "mapaMarcador"
 }
