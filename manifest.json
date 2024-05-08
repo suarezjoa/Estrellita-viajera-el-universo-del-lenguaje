@@ -12,8 +12,7 @@
         {
             "src": "icons/LargeTile.scale-200.png",
             "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
+            "type": "image/png"
         },
         {
             "src": "icons/maskable_192.png",
