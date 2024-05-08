@@ -1,57 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Estrellita-viajera-el-universo-del-lenguaje</title>
-        <meta name="description" content="ayudar a los pacientes a mejorar sus habilidades de semántica y morfosintaxis, mediante un juego, desde la comodidad de sus hogares." />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#03a9f4" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="google" content="notranslate" />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Mapa</title>
+    
+    <link rel="manifest" href="manifest.json" />
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@site" />
-        <meta name="twitter:url" content="https://estrellita-viajera-el-universo-del-lenguaje.vercel.app" />
-        <meta name="twitter:title" content="Estrellita-viajera-el-universo-del-lenguaje" />
-        <meta name="twitter:description" content="ayudar a los pacientes a mejorar sus habilidades de semántica y morfosintaxis, mediante un juego, desde la comodidad de sus hogares." />
-        <meta name="twitter:image" content="" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        .leaflet-container {
+            height: 400px;
+            width: 600px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map" style="width: 1600px; height: 900px;"></div>
+    <script>
+        var db;
+        var request = window.indexedDB.open("MyDatabase", 1);
 
-        <!-- Open Graph -->
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Estrellita-viajera-el-universo-del-lenguaje" />
-        <meta property="og:description" content="ayudar a los pacientes a mejorar sus habilidades de semántica y morfosintaxis, mediante un juego, desde la comodidad de sus hogares." />
-        <meta property="og:site_name" content="Estrillita  viajera" />
-        <meta property="og:url" content="https://estrellita-viajera-el-universo-del-lenguaje.vercel.app" />
-        <meta property="og:image" content="" />
+        request.onerror = function(event) {
+            console.log("Database error: " + event.target.errorCode);
+        };
 
-        <link rel="preload" href="/manifest.json" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="stylesheet" href="/css/native-like-experience.css" />
-        <script async src="https://unpkg.com/pwacompat" crossOrigin="anonymous"></script>
-        <link rel="apple-touch-icon" sizes="512x512" href="/icons/LargeTile.scale-200.png" />
-        <link rel="apple-touch-icon" sizes="512x512" href="/icons/LargeTile.scale-200.png" />
-    </head>
-    <body style="margin: 0">
-        <header style="display: flex; align-items: center; padding: 16px; background-color: #e8e23b; box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14),0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);">
-            <svg style="margin-right: 12px" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                    d="M3 8V6H21V8H3ZM3 13H21V11H3V13ZM3 18H21V16H3V18Z"
-                    fill="black"
-                />
-            </svg>
-            <h4 style="margin: 0; font-weight: 500; color: black">App Name</h4>
-        </header>
+        request.onsuccess = function(event) {
+            db = event.target.result;
 
-        <script>
-            if ("serviceWorker" in navigator) {
-                window.addEventListener("load", function () {
-                    navigator.serviceWorker
-                        .register("/serviceWorker.js")
-                        .then((registration) => {
-                            console.log("SW registration successful");
-                        });
-                });
+            var map = L.map('map').setView([-27.4712, -58.8396], 13); // Coordenadas de Corrientes, Argentina
+
+            var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            function addMarker(e) {
+                var message = prompt('Ingrese el mensaje para la ubicación:');
+                if (!message) return;
+
+                var newMarker = L.marker(e.latlng, { riseOnHover: false })  // Deshabilita el enfoque al pasar el cursor
+                    .addTo(map)
+                    .bindPopup('<b>' + message + '</b>').openPopup();
+
+                // Guarda la ubicación y el mensaje en IndexedDB
+                var transaction = db.transaction(["locations"], "readwrite");
+                var objectStore = transaction.objectStore("locations");
+                objectStore.add({ latlng: e.latlng, message: message });
             }
-        </script>
-    </body>
+
+            map.on('click', addMarker);
+
+            function calcularPesoYLongitud(str) {
+                const longitud = str.length;
+                const pesoEnBytes = new TextEncoder().encode(str).length;
+                const pesoEnKilobytes = (pesoEnBytes / 1024).toFixed(2);
+                const textoConcatenado = `${longitud} caracteres, ${pesoEnKilobytes} KB`;
+                
+                return textoConcatenado;
+            }
+
+            // Recupera las ubicaciones y mensajes del IndexedDB y agrega los marcadores con popups
+            var transaction = db.transaction(["locations"], "readonly");
+            var objectStore = transaction.objectStore("locations");
+            objectStore.openCursor().onsuccess = function(event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    L.marker(cursor.value.latlng, { riseOnHover: false })
+                        .addTo(map)
+                        .bindPopup('<b>' + calcularPesoYLongitud(cursor.value.message) + '</b><br />').openPopup();
+                    cursor.continue();
+                }
+            };
+        };
+
+        request.onupgradeneeded = function(event) {
+            var db = event.target.result;
+            var objectStore = db.createObjectStore("locations", { keyPath: "id", autoIncrement: true });
+            objectStore.createIndex("message", "message", { unique: false });
+        };
+    </script>
+    <script>
+        if (typeof navigator.serviceWorker !== 'undefined') {
+          navigator.serviceWorker.register('sw.js')
+        }
+      </script>
+</body>
 </html>

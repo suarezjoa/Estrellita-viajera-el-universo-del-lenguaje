@@ -1,32 +1,31 @@
 {
-    "background_color": "#ffffff",
-    "description": "ayudar a los pacientes a mejorar sus habilidades de semántica y morfosintaxis, mediante un juego, desde la comodidad de sus hogares.",
-    "dir": "ltr",
-    "display": "standalone",
-    "name": "Estrellita-viajera-el-universo-del-lenguaje",
-    "orientation": "any",
-    "scope": "/",
-    "short_name": "Estrillita  viajera",
-    "start_url": "/",
-    "theme_color": "#03a9f4",
-    "categories": [
-        "navigation",
-        "utilities"
-      ],
-    "screenshots": [],
-    "icons": [
-        {
-            "src": "icons/LargeTile.scale-200.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "shortcuts": [
-        {
-          "name": "MapLOT",
-          "url": "MAPUBI",
-          "description": "Agregar indicadores al mapa "
-        }
-      ],
-      "id": "mapaMarcador"
+  "background_color": "#ffffff",
+  "description": "Aca podras jugar y aprender sobre lenguaje",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Estrellita viajera",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "estrellaviajera",
+  "start_url": "/",
+  "theme_color": "#a64141",
+  "categories": [
+    "navigation",
+    "utilities"
+  ],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "windows11/LargeTile.scale-200.png",
+      "sizes": "620x620"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "estre",
+      "url": "esviake",
+      "description": "juegas y aprender"
+    }
+  ],
+  "id": "estrellitaqueviaja"
 }
